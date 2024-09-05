@@ -1,5 +1,4 @@
-import logo from './logo.svg';
-import './App.css';
+import Login from './view/auth/login';
 
 function App() {
   return (
