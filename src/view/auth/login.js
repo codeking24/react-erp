@@ -1,7 +1,27 @@
-import React from 'react';
-
+import React,{ useState } from "react";
 
 export default function Login() {
+  const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleOnSubmit = async (e) => {
+        e.preventDefault();
+        let result = await fetch(
+        'http://localhost:3000', {  
+            method: "post",
+            body: JSON.stringify({email,password }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        result = await result.json();
+        console.warn(result);
+        if (result) {
+            alert("Data saved succesfully");
+            setEmail("");
+            setPassword("");
+        }
+    }
   return (
     <div>
       <main className="main" id="top">
@@ -17,7 +37,7 @@ export default function Login() {
               <div className="col col-sm-6 col-lg-7 col-xl-6">
                 <a
                   className="d-flex flex-center text-decoration-none mb-4"
-                  href="#"
+                   href="#a"
                   >
                 </a>
                 <div className="text-left mb-7">
@@ -35,6 +55,8 @@ export default function Login() {
                       id="email"
                       type="email"
                       placeholder="name@example.com"
+                      value={email} 
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                     <span className="fas fa-user text-body fs-9 form-icon"></span>
                   </div>
@@ -49,6 +71,8 @@ export default function Login() {
                       id="password"
                       type="password"
                       placeholder="Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                     <span className="fas fa-key text-body fs-9 form-icon"></span>
                   </div>
@@ -73,9 +97,9 @@ export default function Login() {
                     </a>
                   </div>
                 </div>
-                <a className="btn btn-primary w-100 mb-3" href='/dashboard'>Sign In</a>
+                <button onClick={handleOnSubmit} className="btn btn-primary w-100 mb-3" href='/dashboard'>Sign In</button>
                 <div className="text-center">
-                  <a className="fs-9 fw-bold" href="#">
+                  <a className="fs-9 fw-bold" href="#b">
                     Create an account
                   </a>
                 </div>
