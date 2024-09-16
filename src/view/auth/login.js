@@ -1,7 +1,43 @@
-import React from 'react';
-
+import React,{ useState } from "react";
 
 export default function Login() {
+  const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleOnSubmit = async (e) => {
+      e.preventDefault();
+      try {
+          let response = await fetch('http://localhost:3000', {
+              method: "POST",
+              body: JSON.stringify({ email, password }),
+              headers: {
+                  'Content-Type': 'application/json'
+              }
+          });
+  
+          // Check if the response is okay (status in the range 200-299)
+          if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+          }
+  
+          // Attempt to parse the response as JSON
+          let result = await response.json();
+          console.warn(result);
+  
+          if (result) {
+              alert("Data saved successfully");
+              setEmail("");
+              setPassword("");
+          }
+      } catch (error) {
+          // Log the error message
+          console.error('There was an error with the fetch operation:', error);
+  
+          // Show a user-friendly alert
+          alert("An error occurred. Please try again.");
+      }
+  };
+  
   return (
     <div>
       <main className="main" id="top">
@@ -17,8 +53,8 @@ export default function Login() {
               <div className="col col-sm-6 col-lg-7 col-xl-6">
                 <a
                   className="d-flex flex-center text-decoration-none mb-4"
-                  href="#"
-                >
+                   href="#a"
+                  >
                 </a>
                 <div className="text-left mb-7">
                   <h3 className="text-body-highlight">Sign In</h3>
@@ -35,6 +71,8 @@ export default function Login() {
                       id="email"
                       type="email"
                       placeholder="name@example.com"
+                      value={email} 
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                     <span className="fas fa-user text-body fs-9 form-icon"></span>
                   </div>
@@ -49,6 +87,8 @@ export default function Login() {
                       id="password"
                       type="password"
                       placeholder="Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                     <span className="fas fa-key text-body fs-9 form-icon"></span>
                   </div>
@@ -73,9 +113,9 @@ export default function Login() {
                     </a>
                   </div>
                 </div>
-                <a className="btn btn-primary w-100 mb-3" href='/dashboard'>Sign In</a>
+                <button onClick={handleOnSubmit} className="btn btn-primary w-100 mb-3" href='/dashboard'>Sign In</button>
                 <div className="text-center">
-                  <a className="fs-9 fw-bold" href="#">
+                  <a className="fs-9 fw-bold" href="#b">
                     Create an account
                   </a>
                 </div>
