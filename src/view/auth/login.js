@@ -5,23 +5,39 @@ export default function Login() {
     const [password, setPassword] = useState('');
 
     const handleOnSubmit = async (e) => {
-        e.preventDefault();
-        let result = await fetch(
-        'http://localhost:3000', {  
-            method: "post",
-            body: JSON.stringify({email,password }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        result = await result.json();
-        console.warn(result);
-        if (result) {
-            alert("Data saved succesfully");
-            setEmail("");
-            setPassword("");
-        }
-    }
+      e.preventDefault();
+      try {
+          let response = await fetch('http://localhost:3000', {
+              method: "POST",
+              body: JSON.stringify({ email, password }),
+              headers: {
+                  'Content-Type': 'application/json'
+              }
+          });
+  
+          // Check if the response is okay (status in the range 200-299)
+          if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+          }
+  
+          // Attempt to parse the response as JSON
+          let result = await response.json();
+          console.warn(result);
+  
+          if (result) {
+              alert("Data saved successfully");
+              setEmail("");
+              setPassword("");
+          }
+      } catch (error) {
+          // Log the error message
+          console.error('There was an error with the fetch operation:', error);
+  
+          // Show a user-friendly alert
+          alert("An error occurred. Please try again.");
+      }
+  };
+  
   return (
     <div>
       <main className="main" id="top">
