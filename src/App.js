@@ -3,8 +3,9 @@ import Login from './view/auth/login';
 function App() {
   return (
     <div>
-    <Login />
-  </div>
+      <Login />
+    </div>
+
   );
 }
 

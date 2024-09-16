@@ -1,43 +1,42 @@
-import React,{ useState } from "react";
+import React, { useState } from "react";
 
 export default function Login() {
   const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+  const [password, setPassword] = useState('');
 
-    const handleOnSubmit = async (e) => {
-      e.preventDefault();
-      try {
-          let response = await fetch('http://localhost:3000', {
-              method: "POST",
-              body: JSON.stringify({ email, password }),
-              headers: {
-                  'Content-Type': 'application/json'
-              }
-          });
-  
-          // Check if the response is okay (status in the range 200-299)
-          if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
-          }
-  
-          // Attempt to parse the response as JSON
-          let result = await response.json();
-          console.warn(result);
-  
-          if (result) {
-              alert("Data saved successfully");
-              setEmail("");
-              setPassword("");
-          }
-      } catch (error) {
-          // Log the error message
-          console.error('There was an error with the fetch operation:', error);
-  
-          // Show a user-friendly alert
-          alert("An error occurred. Please try again.");
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      let response = await fetch('http://localhost:3000', {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      // Check if the response is okay (status in the range 200-299)
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
+
+      // Attempt to parse the response as JSON
+      let result = await response.json();
+      console.warn(result);
+
+      if (result) {
+        alert("Data saved successfully");
+        setEmail("");
+        setPassword("");
+      }
+    } catch (error) {
+      // Log the error message
+      console.error('There was an error with the fetch operation:', error);
+      // Show a user-friendly alert
+      alert("An error occurred. Please try again.");
+    }
   };
-  
+
   return (
     <div>
       <main className="main" id="top">
@@ -53,14 +52,14 @@ export default function Login() {
               <div className="col col-sm-6 col-lg-7 col-xl-6">
                 <a
                   className="d-flex flex-center text-decoration-none mb-4"
-                   href="#a"
-                  >
+                  href="#a"
+                >
                 </a>
                 <div className="text-left mb-7">
                   <h3 className="text-body-highlight">Sign In</h3>
                   <p className="text-body-tertiary">Get access to your account</p>
                 </div>
-                
+
                 <div className="mb-3 text-start">
                   <label className="form-label" htmlFor="email">
                     Email address
@@ -71,7 +70,7 @@ export default function Login() {
                       id="email"
                       type="email"
                       placeholder="name@example.com"
-                      value={email} 
+                      value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
                     <span className="fas fa-user text-body fs-9 form-icon"></span>
