@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 const mockConfig = {
     phoenixNavbarTopShape: 'slim',
     phoenixNavbarPosition: 'horizontal',
-    phoenixNavbarTopStyle: 'darker',
+    phoenixNavbarTopStyle: 'lighter',
     phoenixNavbarVerticalStyle: 'darker'
 };
 
@@ -78,7 +78,7 @@ function Header() {
 
     return (
         <>
-            <nav className="navbar navbar-vertical navbar-expand-lg" style={{ display: 'none' }}>
+            {/* <nav className="navbar navbar-vertical navbar-expand-lg" style={{ display: 'none' }}>
 
                 <div className="collapse navbar-collapse" id="navbarVerticalCollapse">
 
@@ -6068,7 +6068,7 @@ function Header() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }
