@@ -4,10 +4,9 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleOnSubmit = async (e) => {
-    e.preventDefault();
+  const userSignUp = async (e) => {
     try {
-      let response = await fetch('http://localhost:3000', {
+      let response = await fetch('http://localhost:3000/usersignup', {
         method: "POST",
         body: JSON.stringify({ email, password }),
         headers: {
@@ -35,6 +34,41 @@ export default function Login() {
       // Show a user-friendly alert
       alert("An error occurred. Please try again.");
     }
+    e.preventDefault();
+  };
+
+
+  const handleOnSubmit = async (e) => {
+    try {
+      let response = await fetch('http://localhost:3000/checklogin', {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      // Check if the response is okay (status in the range 200-299)
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      // Attempt to parse the response as JSON
+      let result = await response.json();
+      console.warn(result);
+
+      if (result) {
+        alert("Log In Successfully");
+        setEmail("");
+        setPassword("");
+      }
+    } catch (error) {
+      // Log the error message
+      console.error('There was an error with the fetch operation:', error);
+      // Show a user-friendly alert
+      alert("An error occurred. Please try again.");
+    }
+    e.preventDefault();
   };
 
   return (
