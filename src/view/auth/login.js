@@ -8,7 +8,7 @@ export default function Login() {
 
   const userSignUp = async (e) => {
     try {
-      let response = await fetch('http://localhost:3000/usersignup', {
+      let response = await fetch('http://localhost:5000/usersignup', {
         method: "POST",
         body: JSON.stringify({ email, password }),
         headers: {
@@ -43,7 +43,7 @@ export default function Login() {
 
   const handleOnSubmit = async (e) => {
     try {
-      let response = await fetch('http://localhost:3000/checklogin', {
+      let response = await fetch('http://localhost:5000/checklogin', {
         method: "POST",
         body: JSON.stringify({ email, password }),
         headers: {
@@ -64,7 +64,7 @@ export default function Login() {
         console.log(result.message);
         setEmail("");
         setPassword("");
-        navigate('/dashboard'); // Redirect to dashboard
+        navigate('/dashboard'); // Redirect to dashboard Router
       }
     } catch (error) {
       // Log the error message
